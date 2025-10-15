@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EV Charging Station Forecaster</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>EV Charging Station Demand Forecaster</h1>
+        <p>Using <strong>{{ n_clusters }}</strong> spatial clusters (K-Means)</p>
+
+        <h2>Top Ranked EV Charger Locations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Predicted Demand</th>
+                    <th>Existing Chargers</th>
+                    <th>Priority Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                <tr>
+                    <td>{{ row.rank }}</td>
+                    <td>{{ row.lat }}</td>
+                    <td>{{ row.lon }}</td>
+                    <td>{{ row.pred_demand }}</td>
+                    <td>{{ row.existing_chargers }}</td>
+                    <td>{{ row.priority_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Map of Top EV Charger Locations</h2>
+        <iframe src="{{ url_for('map_view') }}" width="100%" height="600" style="border:none;"></iframe>
+    </div>
+</body>
+</html>
